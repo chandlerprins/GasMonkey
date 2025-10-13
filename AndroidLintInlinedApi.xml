@@ -1,0 +1,30 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/airmonitorble/MainActivity.kt</file>
+  <line>25</line>
+  <module>airmonitorble.app.main</module>
+  <package>com.example.airmonitorble</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/airmonitorble/MainActivity.kt" />
+  <problem_class id="AndroidLintInlinedApi" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Using inlined constants on older versions</problem_class>
+  <hints />
+  <description>&lt;html&gt;Field requires API level 31 (current min is 24): &lt;code&gt;android.Manifest.permission#BLUETOOTH_SCAN&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>Manifest.permission.BLUETOOTH_SCAN</highlighted_element>
+  <language>kotlin</language>
+  <offset>35</offset>
+  <length>34</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/airmonitorble/MainActivity.kt</file>
+  <line>25</line>
+  <module>airmonitorble.app.main</module>
+  <package>com.example.airmonitorble</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/airmonitorble/MainActivity.kt" />
+  <problem_class id="AndroidLintInlinedApi" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Using inlined constants on older versions</problem_class>
+  <hints />
+  <description>&lt;html&gt;Field requires API level 31 (current min is 24): &lt;code&gt;android.Manifest.permission#BLUETOOTH_CONNECT&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>Manifest.permission.BLUETOOTH_CONNECT</highlighted_element>
+  <language>kotlin</language>
+  <offset>71</offset>
+  <length>37</length>
+</problem>
+</problems>

@@ -1,0 +1,29 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle.kts</file>
+  <line>47</line>
+  <module>airmonitorble.app</module>
+  <package>&lt;default&gt;</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle.kts" />
+  <problem_class id="AndroidLintNewerVersionAvailable" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Newer Library Versions Available</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of no.nordicsemi.android:ble than 2.5.1 is available: 2.11.0&lt;/html&gt;</description>
+  <highlighted_element>&quot;no.nordicsemi.android:ble:2.5.1&quot;</highlighted_element>
+  <language>kotlin</language>
+  <offset>19</offset>
+  <length>33</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/libs.versions.toml</file>
+  <line>3</line>
+  <module>airmonitorble</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/libs.versions.toml" />
+  <problem_class id="AndroidLintNewerVersionAvailable" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Newer Library Versions Available</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of org.jetbrains.kotlin.android than 2.0.21 is available: 2.2.20&lt;/html&gt;</description>
+  <highlighted_element>&quot;2.0.21&quot;</highlighted_element>
+  <language>TOML</language>
+  <offset>9</offset>
+  <length>8</length>
+</problem>
+</problems>

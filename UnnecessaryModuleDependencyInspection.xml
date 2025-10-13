@@ -1,0 +1,26 @@
+<problems>
+<problem>
+  <file>airmonitorble.app.androidTest</file>
+  <module>airmonitorble.app.androidTest</module>
+  <entry_point TYPE="module" FQNAME="airmonitorble.app.androidTest" />
+  <problem_class id="UnnecessaryModuleDependencyInspection" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary module dependency</problem_class>
+  <hints>
+    <hint value="airmonitorble.app.main" />
+  </hints>
+  <description>Module 'airmonitorble.app.androidTest' sources do not depend on module 'airmonitorble.app.main' sources</description>
+  <highlighted_element />
+  <language />
+</problem>
+<problem>
+  <file>airmonitorble.app.unitTest</file>
+  <module>airmonitorble.app.unitTest</module>
+  <entry_point TYPE="module" FQNAME="airmonitorble.app.unitTest" />
+  <problem_class id="UnnecessaryModuleDependencyInspection" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary module dependency</problem_class>
+  <hints>
+    <hint value="airmonitorble.app.main" />
+  </hints>
+  <description>Module 'airmonitorble.app.unitTest' sources do not depend on module 'airmonitorble.app.main' sources</description>
+  <highlighted_element />
+  <language />
+</problem>
+</problems>
