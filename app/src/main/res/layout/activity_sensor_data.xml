@@ -2,6 +2,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,6 +10,7 @@
         android:id="@+id/gasDataText"
         android:text="Fetching sensor data..."
         android:textSize="18sp"
+        android:textColor="@color/red_700"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

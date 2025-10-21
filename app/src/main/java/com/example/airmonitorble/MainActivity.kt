@@ -20,7 +20,6 @@ import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
 import android.content.Intent
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bleManager: SimpleBleManager
@@ -70,6 +69,12 @@ class MainActivity : AppCompatActivity() {
         val goToDashboardBtn = findViewById<Button>(R.id.goToDashboardBtn)
         goToDashboardBtn.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+
+        }
+        val goToHistoryBtn = findViewById<Button>(R.id.goToHistoryBtn)
+        goToHistoryBtn.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
 

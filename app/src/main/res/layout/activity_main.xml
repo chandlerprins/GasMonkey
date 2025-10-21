@@ -1,40 +1,238 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:gravity="center_horizontal"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <Button
-        android:id="@+id/connectBleBtn"
-        android:text="Connect to BLE Device"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <Button
-        android:id="@+id/scanWifiBtn"
-        android:text="Scan for Wi-Fi Networks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-    <Button
-        android:id="@+id/goToDashboardBtn"
-        android:text="Go to Dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/statusText"
-        android:text="Status: Idle"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                <ImageButton
+                    android:id="@+id/menuBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
 
-    <ListView
-        android:id="@+id/wifiListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
-</LinearLayout>
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home page"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+
+                    android:contentDescription="Logo" />
+            </LinearLayout>
+
+            <!-- Greeting -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good day, Gas Monkey"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Here you can monitor your rooms and devices\nbased on temperatures and gasses"
+                android:textColor="#555555"
+                android:textSize="14sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Location Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_orange_gradient"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="My Location"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+
+                        <TextView
+                            android:text="Newton Park, Greenacres"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+
+                        <TextView
+                            android:text="Sunny"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:layout_marginTop="2dp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="17°"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="36sp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+
+                        <TextView
+                            android:text="H:25°  L:12°"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Sensor Cards Row -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <!-- Humidity -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+
+                            app:tint="#0288D1"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp" />
+
+                        <TextView
+                            android:text="Inside humidity"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+
+                        <TextView
+                            android:text="%"
+                            android:textColor="#888"
+                            android:textSize="16sp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Temperature -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+
+                            app:tint="#F57C00"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp" />
+
+                        <TextView
+                            android:text="Inside Temps."
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+
+                        <TextView
+                            android:text="-"
+                            android:textColor="#888"
+                            android:textSize="16sp"
+                            android:layout_height="14dp"
+                            android:layout_width="14dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        app:itemIconTint="@color/nav_selector"-->
+<!--        app:itemTextColor="@color/nav_selector"-->
+<!--        app:menu="@menu/bottom_nav_menu"-->
+<!--        app:labelVisibilityMode="labeled"-->
+<!--        android:background="@drawable/bg_bottom_nav" />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
