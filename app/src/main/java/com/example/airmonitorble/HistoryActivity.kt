@@ -1,11 +1,13 @@
 package com.example.airmonitorble
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -33,14 +35,42 @@ class HistoryActivity : AppCompatActivity() {
         historyRecycler = findViewById(R.id.historyRecycler)
         historyRecycler.layoutManager = LinearLayoutManager(this)
 
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        bottomNav?.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+
+                R.id.nav_dashboard -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    true
+                }
+
+                R.id.nav_history -> true
+
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         fetchHistory()
     }
 
     private fun fetchHistory() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(apiUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofit =
+            Retrofit.Builder().baseUrl(apiUrl).addConverterFactory(GsonConverterFactory.create())
+                .build()
 
         val api = retrofit.create(ReadingsApi::class.java)
 
@@ -55,13 +85,16 @@ class HistoryActivity : AppCompatActivity() {
                         displayGraph(readingsList)
                         displayList(readingsList)
                     } else {
-                        Toast.makeText(this@HistoryActivity, "No readings found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@HistoryActivity, "No readings found", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } catch (e: Exception) {
                 Log.e("HistoryActivity", "Error fetching readings", e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@HistoryActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@HistoryActivity, "Error: ${e.message}", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }

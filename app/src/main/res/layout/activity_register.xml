@@ -1,89 +1,113 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#000000"
-    android:padding="30dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:fillViewport="true"
+    android:padding="25dp"
+    tools:context=".RegisterActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Logo"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gm_logo"
+            tools:ignore="HardcodedText" />
 
         <TextView
-            android:text="🔥 GasMonkey Register"
-            android:textColor="#FF0000"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="40dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="🔥 GasMonkey Register"
+            android:textAllCaps="true"
+            android:textColor="#FF0000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/usernameInput"
-            android:hint="Username"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#888888"
-            android:backgroundTint="#FF0000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#FF0000"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888" />
 
         <EditText
             android:id="@+id/registerEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#FF0000"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            android:padding="15dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#888888"
-            android:backgroundTint="#FF0000"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColorHint="#888888" />
 
         <EditText
             android:id="@+id/registerPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#FF0000"
             android:hint="Password"
             android:inputType="textPassword"
+            android:padding="15dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#888888"
-            android:backgroundTint="#FF0000"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColorHint="#888888" />
 
         <EditText
             android:id="@+id/confirmPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#FF0000"
             android:hint="Confirm Password"
             android:inputType="textPassword"
+            android:padding="15dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#888888"
-            android:backgroundTint="#FF0000"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColorHint="#888888" />
 
         <Button
             android:id="@+id/registerBtn"
-            android:text="Register"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#D32F2F"
-            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FF0000"
+            android:padding="15dp"
+            android:text="Register"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/forgotPasswordLink"
-            android:text="Forgot Password?"
-            android:textColor="#FF5252"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="Forgot Password?"
+            android:textColor="#FF0000" />
 
         <TextView
             android:id="@+id/goToLoginLink"
-            android:text="Already have an account? Login"
-            android:textColor="#FF5252"
-            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="Already have an account? Login"
+            android:textColor="#FF0000" />
     </LinearLayout>
 </ScrollView>

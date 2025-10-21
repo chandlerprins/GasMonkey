@@ -19,6 +19,7 @@ import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
 import android.content.Intent
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -101,6 +102,34 @@ class MainActivity : AppCompatActivity() {
             val selectedSSID = wifiList[position].SSID
             showPasswordDialog(selectedSSID)
         }
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        bottomNav?.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> true
+                R.id.nav_dashboard -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    true
+                }
+
+                R.id.nav_history -> {
+                    startActivity(Intent(this, HistoryActivity::class.java))
+                    true
+                }
+
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun permissionsGranted(): Boolean {
@@ -121,15 +150,18 @@ class MainActivity : AppCompatActivity() {
                 wifiManager.isWifiEnabled = true
             }
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 val success = wifiManager.startScan()
                 if (success) {
-                    wifiList = wifiManager.scanResults.distinctBy { it.SSID }.filter { it.SSID.isNotEmpty() }
+                    wifiList = wifiManager.scanResults.distinctBy { it.SSID }
+                        .filter { it.SSID.isNotEmpty() }
                     val adapter = ArrayAdapter(
                         this,
                         android.R.layout.simple_list_item_1,
-                        wifiList.map { "${it.SSID} (${it.level} dBm)" }
-                    )
+                        wifiList.map { "${it.SSID} (${it.level} dBm)" })
                     wifiListView.adapter = adapter
                     Toast.makeText(this, "Wi-Fi networks updated", Toast.LENGTH_SHORT).show()
                 } else {
@@ -148,9 +180,7 @@ class MainActivity : AppCompatActivity() {
         val input = EditText(this)
         input.hint = "Enter password"
 
-        AlertDialog.Builder(this)
-            .setTitle("Connect to $ssid")
-            .setView(input)
+        AlertDialog.Builder(this).setTitle("Connect to $ssid").setView(input)
             .setPositiveButton("Send") { _: DialogInterface, _: Int ->
                 val pass = input.text.toString()
                 if (pass.isNotEmpty()) {
@@ -164,9 +194,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Password required", Toast.LENGTH_SHORT).show()
                 }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+            }.setNegativeButton("Cancel", null).show()
     }
 
     private fun startScanAndConnect() {
@@ -183,6 +211,18 @@ class MainActivity : AppCompatActivity() {
             }
             statusText.text = if (success) "BLE Connected!" else "BLE Connect Failed"
             connectBleBtn.isEnabled = true
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val prefs = getSharedPreferences("GasMonkeyPrefs", Context.MODE_PRIVATE)
+        val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
+
+        if (!isLoggedIn) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 }
@@ -221,14 +261,20 @@ class SimpleBleManager(
     suspend fun scanAndConnect(deviceName: String): Boolean = withContext(Dispatchers.IO) {
         val scanner = BluetoothLeScannerCompat.getScanner()
         val filter = ScanFilter.Builder().setDeviceName(deviceName).build()
-        val settings = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
+        val settings =
+            ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
         val job = CompletableDeferred<android.bluetooth.BluetoothDevice?>()
 
         val callback = object : ScanCallback() {
-            override fun onScanResult(callbackType: Int, result: no.nordicsemi.android.support.v18.scanner.ScanResult) {
+            override fun onScanResult(
+                callbackType: Int, result: no.nordicsemi.android.support.v18.scanner.ScanResult
+            ) {
                 val foundName = result.device?.name
                 if (foundName == deviceName && !job.isCompleted) job.complete(result.device)
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        context, Manifest.permission.BLUETOOTH_SCAN
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     try {
                         scanner.stopScan(this)
                     } catch (e: SecurityException) {
@@ -242,7 +288,10 @@ class SimpleBleManager(
             }
         }
 
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                context, Manifest.permission.BLUETOOTH_SCAN
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             try {
                 scanner.startScan(listOf(filter), settings, callback)
             } catch (e: SecurityException) {
@@ -253,13 +302,12 @@ class SimpleBleManager(
 
         val device = job.await()
         return@withContext if (device != null) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH_CONNECT
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 try {
-                    connect(device)
-                        .useAutoConnect(false)
-                        .retry(3, 100)
-                        .timeout(10000)
-                        .enqueue()
+                    connect(device).useAutoConnect(false).retry(3, 100).timeout(10000).enqueue()
                     true
                 } catch (e: SecurityException) {
                     e.printStackTrace()
@@ -271,16 +319,19 @@ class SimpleBleManager(
 
     fun sendWiFi(ssid: String, pass: String) {
         try {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT)
-                != PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 Toast.makeText(context, "Missing BLE connect permission", Toast.LENGTH_SHORT).show()
                 return
             }
 
             ssidChar?.let {
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT)
-                    == PackageManager.PERMISSION_GRANTED
+                if (ContextCompat.checkSelfPermission(
+                        context, Manifest.permission.BLUETOOTH_CONNECT
+                    ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     writeCharacteristic(it, ssid.toByteArray()).enqueue()
                 }
@@ -289,8 +340,9 @@ class SimpleBleManager(
             GlobalScope.launch {
                 delay(300)
                 passChar?.let {
-                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT)
-                        == PackageManager.PERMISSION_GRANTED
+                    if (ContextCompat.checkSelfPermission(
+                            context, Manifest.permission.BLUETOOTH_CONNECT
+                        ) == PackageManager.PERMISSION_GRANTED
                     ) {
                         writeCharacteristic(it, pass.toByteArray()).enqueue()
                     }

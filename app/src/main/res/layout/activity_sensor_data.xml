@@ -1,16 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
     android:background="#000000"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".SensorDataActivity">
 
     <TextView
         android:id="@+id/gasDataText"
         android:text="Fetching sensor data..."
-        android:textSize="18sp"
-        android:textColor="#FF5252"
+        android:textSize="20sp"
+        android:textColor="#FF0000"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -21,10 +21,11 @@ class HistoryAdapter(private val readings: List<SensorReading>) :
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val r = readings[position]
-        val date = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-            .format(Date(r.Timestamp))
+        val date =
+            SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date(r.Timestamp))
         holder.title.text = "AQI: ${r.Aqi} | Temp: ${r.Temperature}°C"
-        holder.subtitle.text = "Time: $date | LPG: ${r.Lpg}, CO₂: ${r.Co2}, NH₃: ${r.Nh3}, Humidity: ${r.Humidity}%"
+        holder.subtitle.text =
+            "Time: $date | LPG: ${r.Lpg}, CO₂: ${r.Co2}, NH₃: ${r.Nh3}, Humidity: ${r.Humidity}%"
     }
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

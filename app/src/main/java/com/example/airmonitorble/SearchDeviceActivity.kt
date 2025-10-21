@@ -48,15 +48,16 @@ class SearchDeviceActivity : AppCompatActivity() {
             val user = auth.currentUser
             if (user != null) {
                 val dbRef = FirebaseDatabase.getInstance().getReference("users/${user.uid}/device")
-                dbRef.setValue(deviceId)
-                    .addOnSuccessListener {
+                dbRef.setValue(deviceId).addOnSuccessListener {
                         saveDeviceLinked()
-                        Toast.makeText(this, "Device added successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Device added successfully!", Toast.LENGTH_SHORT)
+                            .show()
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Failed to link device: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            this, "Failed to link device: ${it.message}", Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
         }

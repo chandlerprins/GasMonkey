@@ -1,47 +1,95 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#000000"
-    android:padding="20dp"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:orientation="vertical"
+    tools:context=".DashboardActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:text="🔥 GasMonkey Air Quality Dashboard"
-            android:textColor="#FF0000"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView android:id="@+id/lpgText" android:text="LPG: --" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/co2Text" android:text="CO₂: --" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/nh3Text" android:text="NH₃: --" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/tempText" android:text="Temp: -- °C" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/humText" android:text="Humidity: -- %" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/aqiText" android:text="AQI: --" android:textSize="18sp"
-            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:contentDescription="Logo"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gm_logo"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="🔥 GasMonkey Air Quality Dashboard"
+                android:textColor="#FF0000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lpgText"
+                style="@style/SensorText"
+                android:text="LPG: --" />
+
+            <TextView
+                android:id="@+id/co2Text"
+                style="@style/SensorText"
+                android:text="CO₂: --" />
+
+            <TextView
+                android:id="@+id/nh3Text"
+                style="@style/SensorText"
+                android:text="NH₃: --" />
+
+            <TextView
+                android:id="@+id/tempText"
+                style="@style/SensorText"
+                android:text="Temp: -- °C" />
+
+            <TextView
+                android:id="@+id/humText"
+                style="@style/SensorText"
+                android:text="Humidity: -- %" />
+
+            <TextView
+                android:id="@+id/aqiText"
+                style="@style/SensorText"
+                android:text="AQI: --" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        app:backgroundTint="#1E1E1E"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>

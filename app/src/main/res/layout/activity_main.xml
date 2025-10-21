@@ -1,57 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#121212"
-    android:padding="20dp"
-    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/connectBleBtn"
-        android:text="Connect to BLE Device"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#B00020"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/scanWifiBtn"
-        android:text="Scan for Wi-Fi Networks"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#D32F2F"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:id="@+id/goToDashboardBtn"
-        android:text="Go to Dashboard"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#E53935"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:id="@+id/goToHistoryBtn"
-        android:text="Go to History"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#E53935"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:id="@+id/statusText"
-        android:text="Status: Idle"
-        android:textColor="#FF0000"
-        android:layout_marginTop="10dp"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-    <ListView
-        android:id="@+id/wifiListView"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_gm_logo"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/connectBleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:fontFamily="sans-serif-medium"
+                android:text="Connect to BLE Device"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/scanWifiBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#FF0000"
+                android:fontFamily="sans-serif-medium"
+                android:text="Scan for Wi-Fi Networks"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/goToDashboardBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#FF0000"
+                android:fontFamily="sans-serif-medium"
+                android:text="Go to Dashboard"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/goToHistoryBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#FF0000"
+                android:fontFamily="sans-serif-medium"
+                android:text="Go to History"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Status: Idle"
+                android:textColor="#FF0000"
+                android:textSize="16sp" />
+
+            <ListView
+                android:id="@+id/wifiListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:elevation="10dp"
+        app:backgroundTint="#1E1E1E"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

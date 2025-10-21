@@ -34,13 +34,12 @@ class RegisterActivity : AppCompatActivity() {
         forgotPasswordLink.setOnClickListener {
             val email = emailInput.text.toString().trim()
             if (email.isEmpty()) {
-                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                auth.sendPasswordResetEmail(email)
-                    .addOnSuccessListener {
+                auth.sendPasswordResetEmail(email).addOnSuccessListener {
                         Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
+                    }.addOnFailureListener {
                         Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             }
@@ -63,36 +62,43 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             if (password.length < 6) {
-                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
+            auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                     val user = auth.currentUser
                     user?.sendEmailVerification()?.addOnSuccessListener {
                         val userMap = hashMapOf(
-                            "username" to username,
-                            "email" to email,
-                            "uid" to user.uid
+                            "username" to username, "email" to email, "uid" to user.uid
                         )
 
                         db.collection("users").document(user.uid).set(userMap)
                             .addOnSuccessListener {
-                                Toast.makeText(this, "Registered successfully! Verify your email before login.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    this,
+                                    "Registered successfully! Verify your email before login.",
+                                    Toast.LENGTH_LONG
+                                ).show()
                                 auth.signOut()
                                 startActivity(Intent(this, LoginActivity::class.java))
                                 finish()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Database error: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }.addOnFailureListener { e ->
+                                Toast.makeText(
+                                    this, "Database error: ${e.message}", Toast.LENGTH_SHORT
+                                ).show()
                             }
                     }?.addOnFailureListener {
-                        Toast.makeText(this, "Failed to send verification email: ${it.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Failed to send verification email: ${it.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
         }
     }

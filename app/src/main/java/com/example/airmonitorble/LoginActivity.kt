@@ -30,13 +30,12 @@ class LoginActivity : AppCompatActivity() {
         forgotPasswordLink.setOnClickListener {
             val email = emailInput.text.toString().trim()
             if (email.isEmpty()) {
-                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                auth.sendPasswordResetEmail(email)
-                    .addOnSuccessListener {
+                auth.sendPasswordResetEmail(email).addOnSuccessListener {
                         Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
+                    }.addOnFailureListener {
                         Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             }
@@ -51,8 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
+            auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
                     val user = auth.currentUser
                     if (user != null && user.isEmailVerified) {
                         Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
@@ -60,6 +58,8 @@ class LoginActivity : AppCompatActivity() {
                         //  Check if user has already linked a device
                         val prefs = getSharedPreferences("GasMonkeyPrefs", Context.MODE_PRIVATE)
                         val deviceLinked = prefs.getBoolean("deviceLinked", false)
+
+                        prefs.edit().putBoolean("isLoggedIn", true).apply()
 
                         if (deviceLinked) {
                             // Device already linked, go straight to MainActivity
@@ -70,11 +70,11 @@ class LoginActivity : AppCompatActivity() {
                         }
                         finish()
                     } else {
-                        Toast.makeText(this, "Please verify your email first", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Please verify your email first", Toast.LENGTH_LONG)
+                            .show()
                         auth.signOut()
                     }
-                }
-                .addOnFailureListener {
+                }.addOnFailureListener {
                     Toast.makeText(this, "Login failed: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }
