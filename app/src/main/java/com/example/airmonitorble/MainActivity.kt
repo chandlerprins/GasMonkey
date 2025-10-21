@@ -67,17 +67,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val goToDashboardBtn = findViewById<Button>(R.id.goToDashboardBtn)
-        goToDashboardBtn.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
 
-        }
-        val goToHistoryBtn = findViewById<Button>(R.id.goToHistoryBtn)
-        goToHistoryBtn.setOnClickListener {
-            val intent = Intent(this, HistoryActivity::class.java)
-            startActivity(intent)
-        }
+//        val goToDashboardBtn = findViewById<Button>(R.id.goToDashboardBtn)
+//        goToDashboardBtn.setOnClickListener {
+//            val intent = Intent(this, DashboardActivity::class.java)
+//            startActivity(intent)
+//
+//        }
+//        val goToHistoryBtn = findViewById<Button>(R.id.goToHistoryBtn)
+//        goToHistoryBtn.setOnClickListener {
+//            val intent = Intent(this, HistoryActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         wifiListView = findViewById(R.id.wifiListView)
