@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#000000"
     android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,19 +11,37 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="🌍 Air Quality Dashboard"
+            android:text="🔥 GasMonkey Air Quality Dashboard"
+            android:textColor="#FF0000"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView android:id="@+id/lpgText" android:text="LPG: --" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/co2Text" android:text="CO₂: --" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/nh3Text" android:text="NH₃: --" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tempText" android:text="Temp: -- °C" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/humText" android:text="Humidity: -- %" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/aqiText" android:text="AQI: --" android:textSize="18sp" android:layout_marginBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/lpgText" android:text="LPG: --" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/co2Text" android:text="CO₂: --" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/nh3Text" android:text="NH₃: --" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/tempText" android:text="Temp: -- °C" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/humText" android:text="Humidity: -- %" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/aqiText" android:text="AQI: --" android:textSize="18sp"
+            android:textColor="#FFFFFF" android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </ScrollView>

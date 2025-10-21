@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">airmonitorble</string>
+    <string name="app_name">GasMonkey</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
 </resources>

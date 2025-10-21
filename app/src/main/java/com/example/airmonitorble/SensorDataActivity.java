@@ -34,7 +34,7 @@ public class SensorDataActivity extends AppCompatActivity {
         gasDataText = findViewById(R.id.gasDataText);
         createNotificationChannel();
 
-        // ✅ Register launcher to request notification permission
+        //  Register launcher to request notification permission
         requestPermissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
                 isGranted -> {
@@ -46,7 +46,7 @@ public class SensorDataActivity extends AppCompatActivity {
                 }
         );
 
-        // ✅ Ask for permission if Android 13 or higher
+        //  Ask for permission if Android 13 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -98,7 +98,7 @@ public class SensorDataActivity extends AppCompatActivity {
     }
 
     private void sendAlert(double aqi) {
-        // ✅ Check permission before notifying
+        //  Check permission before notifying
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return;

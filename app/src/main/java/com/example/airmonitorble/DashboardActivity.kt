@@ -12,9 +12,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.*
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -25,7 +22,6 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var humText: TextView
     private lateinit var aqiText: TextView
 
-    private val esp32Ip = "192.168.3.68" // Change if needed
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     private val requestPermissionLauncher =
@@ -55,54 +51,55 @@ class DashboardActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        startFetchingData()
+        // Start fetching latest readings
+        startAutoRefresh()
     }
 
-    private fun startFetchingData() {
+    private fun startAutoRefresh() {
         scope.launch {
             while (isActive) {
-                fetchSensorData()
-                delay(5000)
+                fetchLatestReading()
+                delay(5000) // refresh every 5 seconds
             }
         }
     }
 
-    private fun fetchSensorData() {
+    private fun fetchLatestReading() {
         scope.launch(Dispatchers.IO) {
             try {
-                val url = URL("http://$esp32Ip/")
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "GET"
-                conn.connectTimeout = 3000
-                conn.readTimeout = 3000
-
-                val response = conn.inputStream.bufferedReader().use { it.readText() }
-                val json = JSONObject(response)
-
-                val lpg = json.getDouble("lpg")
-                val co2 = json.getDouble("co2")
-                val nh3 = json.getDouble("nh3")
-                val temp = json.getDouble("temperature")
-                val hum = json.getDouble("humidity")
-                val aqi = json.getDouble("aqi")
-
-                withContext(Dispatchers.Main) {
-                    lpgText.text = "LPG: %.1f ppm".format(lpg)
-                    co2Text.text = "CO₂: %.1f ppm".format(co2)
-                    nh3Text.text = "NH₃: %.1f ppm".format(nh3)
-                    tempText.text = "Temp: %.1f °C".format(temp)
-                    humText.text = "Humidity: %.0f %%".format(hum)
-                    aqiText.text = "AQI: %.1f".format(aqi)
+                val response = RetrofitClient.apiService.getLatestReading()
+                if (response.isSuccessful) {
+                    val reading = response.body()
+                    reading?.let {
+                        withContext(Dispatchers.Main) {
+                            updateUI(it)
+                            if (it.Aqi > 150.0) sendAlert(it.Aqi)
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@DashboardActivity,
+                            "Failed to fetch latest reading: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-
-                if (aqi > 150.0) sendAlert(aqi)
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@DashboardActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun updateUI(reading: SensorReading) {
+        lpgText.text = "LPG: %.1f ppm".format(reading.Lpg)
+        co2Text.text = "CO₂: %.1f ppm".format(reading.Co2)
+        nh3Text.text = "NH₃: %.1f ppm".format(reading.Nh3)
+        tempText.text = "Temp: %.1f °C".format(reading.Temperature)
+        humText.text = "Humidity: %.0f %%".format(reading.Humidity)
+        aqiText.text = "AQI: %.1f".format(reading.Aqi)
     }
 
     private fun sendAlert(aqi: Double) {
