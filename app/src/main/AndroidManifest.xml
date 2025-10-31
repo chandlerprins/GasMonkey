@@ -59,9 +59,15 @@
             android:label="Register"
             android:theme="@style/Theme.Airmonitorble" />
 
-        <!-- Login Screen (MAIN ENTRY POINT) -->
         <activity
             android:name=".LoginActivity"
+            android:exported="false"
+            android:label="Login"
+            android:theme="@style/Theme.Airmonitorble" />
+
+        <!-- Login Screen (MAIN ENTRY POINT) -->
+        <activity
+            android:name=".WelcomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Airmonitorble">
@@ -77,7 +83,6 @@
         <activity android:name=".LogoutActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".WelcomeActivity" />
 
     </application>
 </manifest>
