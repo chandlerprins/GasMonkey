@@ -36,13 +36,31 @@ class HistoryActivity : AppCompatActivity() {
         historyRecycler.layoutManager = LinearLayoutManager(this)
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
-        bottomNav?.setOnItemSelectedListener { item ->
+        bottomNav.selectedItemId = R.id.nav_history
+
+        bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> { startActivity(Intent(this, MainActivity::class.java)); true }
-                R.id.nav_dashboard -> { startActivity(Intent(this, DashboardActivity::class.java)); true }
+                R.id.nav_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                R.id.nav_dashboard -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
                 R.id.nav_history -> true
-                R.id.nav_settings -> { startActivity(Intent(this, SettingsActivity::class.java)); true }
-                R.id.nav_profile -> { startActivity(Intent(this, ProfileActivity::class.java)); true }
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
                 else -> false
             }
         }

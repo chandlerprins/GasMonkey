@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SensorText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginBottom">12dp</item>
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="BottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#FF0000</item>
+        <item name="shapeAppearanceSmallComponent">@style/RoundedIndicatorShape</item>
     </style>
+
+    <style name="RoundedIndicatorShape">
+        <item name="cornerSize">100%</item>
+    </style>
+
+
+    <style name="SensorText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#00252525</item>
+        <item name="android:elevation">5dp</item>
+    </style>
+
 </resources>

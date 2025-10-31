@@ -4,22 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="#000000"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:background="@drawable/gradient_header"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="50dp">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="15dp"
-            android:scaleType="fitCenter"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
+            android:contentDescription="Logo"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_gm_logo"
             tools:ignore="HardcodedText" />
     </LinearLayout>
@@ -33,9 +36,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <Button
                 android:id="@+id/connectBleBtn"
@@ -45,6 +48,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Connect to BLE Device"
                 android:textAllCaps="true"
+                android:textSize="18sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -57,6 +61,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Scan for Wi-Fi Networks"
                 android:textAllCaps="true"
+                android:textSize="18sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -88,17 +93,20 @@
                 android:id="@+id/statusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif"
                 android:text="Status: Idle"
-                android:textColor="#FF0000"
-                android:textSize="16sp" />
+                android:textColor="#FF3B30"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/wifiListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp" />
+                android:layout_marginTop="15dp"
+                android:divider="#FF0000"
+                android:dividerHeight="1dp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -110,6 +118,8 @@
         app:backgroundTint="#1E1E1E"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
+        app:itemActiveIndicatorStyle="@style/BottomNavIndicator"
+        app:itemRippleColor="#FF0000"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

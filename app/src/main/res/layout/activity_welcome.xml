@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:paddingStart="25dp"
         android:paddingEnd="25dp"
         android:paddingTop="100dp"
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:text="Welcome to the Gas Monitoring Application!"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"/>
 

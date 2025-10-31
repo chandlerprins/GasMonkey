@@ -60,23 +60,29 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
-        bottomNav?.setOnItemSelectedListener { item ->
+        bottomNav.selectedItemId = R.id.nav_settings
+
+        bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0,0)
                     true
                 }
                 R.id.nav_dashboard -> {
                     startActivity(Intent(this, DashboardActivity::class.java))
+                    overridePendingTransition(0,0)
                     true
                 }
                 R.id.nav_history -> {
                     startActivity(Intent(this, HistoryActivity::class.java))
+                    overridePendingTransition(0,0)
                     true
                 }
                 R.id.nav_settings -> true
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
+                    overridePendingTransition(0,0)
                     true
                 }
                 else -> false

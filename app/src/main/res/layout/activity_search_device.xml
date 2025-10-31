@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="#000000"
     android:orientation="vertical"
-    android:padding="25dp"
     tools:context=".SearchDeviceActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:background="@drawable/gradient_header"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:paddingBottom="15dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -26,61 +27,78 @@
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="20dp"
-        android:text="Search for your Air Monitor Device"
-        android:textColor="#FF0F00"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/etSearch"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF0D00"
-        android:hint="Enter Device ID"
-        android:inputType="text"
-        android:padding="15dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF1200"
-        android:text="Search Device"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Search for Air Monitor Devices"
+                android:textAllCaps="true"
+                android:textColor="#FF0000"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnAddDevice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF0D00"
-        android:text="Add Device"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FF0D00"
+                android:hint="Enter Device ID"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7D7D7D"
+                android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FF0000"
+                android:text="Search Device"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnAddDevice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FF0D00"
+                android:text="Add Device"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

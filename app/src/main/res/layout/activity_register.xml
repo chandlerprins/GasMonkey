@@ -1,113 +1,128 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:fillViewport="true"
-    android:padding="25dp"
+    android:orientation="vertical"
     tools:context=".RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:background="@drawable/gradient_header"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:paddingBottom="15dp">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="15dp"
             android:contentDescription="Logo"
             android:scaleType="fitXY"
             android:src="@drawable/ic_gm_logo"
             tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="🔥 GasMonkey Register"
-            android:textAllCaps="true"
-            android:textColor="#FF0000"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/usernameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FF0000"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            android:padding="15dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#888888" />
-
-        <EditText
-            android:id="@+id/registerEmailInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FF0000"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#888888" />
-
-        <EditText
-            android:id="@+id/registerPasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FF0000"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#888888" />
-
-        <EditText
-            android:id="@+id/confirmPasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="#FF0000"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#888888" />
-
-        <Button
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#FF0000"
-            android:padding="15dp"
-            android:text="Register"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/forgotPasswordLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Forgot Password?"
-            android:textColor="#FF0000" />
-
-        <TextView
-            android:id="@+id/goToLoginLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="Already have an account? Login"
-            android:textColor="#FF0000" />
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="Register with Us!"
+                android:textAllCaps="true"
+                android:textColor="#FF0000"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/usernameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext_border"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7D7D7D"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/registerEmailInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext_border"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7D7D7D"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/registerPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext_border"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7D7D7D"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/confirmPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_border"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7D7D7D"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/registerBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="#FF0000"
+                android:padding="10dp"
+                android:text="Register"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/goToLoginLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Already have an account? Login"
+                android:textColor="#FF0000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
