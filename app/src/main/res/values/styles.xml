@@ -6,7 +6,7 @@
     </style>
 
     <style name="RoundedIndicatorShape">
-        <item name="cornerSize">100%</item>
+        <item name="cornerSize">75%</item>
     </style>
 
 

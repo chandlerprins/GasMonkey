@@ -1,19 +1,21 @@
 package com.example.airmonitorble
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
 class ReportProblemActivity : AppCompatActivity() {
-    private lateinit var edtProblemDescription: EditText
-    private lateinit var btnSubmitProblem: Button
+    private lateinit var edtProblemDescription : EditText
+    private lateinit var btnSubmitProblem : Button
     private val firestore = FirebaseFirestore.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report_problem)
 
@@ -23,6 +25,20 @@ class ReportProblemActivity : AppCompatActivity() {
         btnSubmitProblem.setOnClickListener {
             submitProblem()
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateBack()
+            }
+        })
+    }
+
+
+    private fun navigateBack() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
+        finish()
     }
 
     private fun submitProblem() {

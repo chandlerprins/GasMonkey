@@ -15,7 +15,7 @@ class WelcomeActivity : AppCompatActivity() {
         // Delay to show splash screen for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             checkLoginStatus()
-        }, 5000) // 5 seconds
+        }, 3000) // 3 seconds
     }
 
     private fun checkLoginStatus() {

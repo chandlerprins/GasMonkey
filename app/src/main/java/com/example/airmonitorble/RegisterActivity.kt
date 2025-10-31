@@ -2,17 +2,21 @@ package com.example.airmonitorble
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private lateinit var auth : FirebaseAuth
+    private lateinit var db : FirebaseFirestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
@@ -25,25 +29,31 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPasswordInput = findViewById<EditText>(R.id.confirmPasswordInput)
         val registerBtn = findViewById<Button>(R.id.registerBtn)
         val goToLoginLink = findViewById<TextView>(R.id.goToLoginLink)
-        val forgotPasswordLink = findViewById<TextView>(R.id.forgotPasswordLink)
+//        val forgotPasswordLink = findViewById<TextView>(R.id.forgotPasswordLink)
 
         goToLoginLink.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            navigateToLogin()
         }
 
-        forgotPasswordLink.setOnClickListener {
-            val email = emailInput.text.toString().trim()
-            if (email.isEmpty()) {
-                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                auth.sendPasswordResetEmail(email).addOnSuccessListener {
-                        Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
-                    }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateToLogin()
             }
-        }
+        })
+
+//        forgotPasswordLink.setOnClickListener {
+//            val email = emailInput.text.toString().trim()
+//            if (email.isEmpty()) {
+//                Toast.makeText(this, "Enter your email to reset password", Toast.LENGTH_SHORT)
+//                    .show()
+//            } else {
+//                auth.sendPasswordResetEmail(email).addOnSuccessListener {
+//                        Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
+//                    }.addOnFailureListener {
+//                        Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+//                    }
+//            }
+//        }
 
         registerBtn.setOnClickListener {
             val username = usernameInput.text.toString().trim()
@@ -68,38 +78,45 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                    val user = auth.currentUser
-                    user?.sendEmailVerification()?.addOnSuccessListener {
-                        val userMap = hashMapOf(
-                            "username" to username, "email" to email, "uid" to user.uid
-                        )
+                val user = auth.currentUser
+                user?.sendEmailVerification()?.addOnSuccessListener {
+                    val userMap = hashMapOf(
+                        "username" to username, "email" to email, "uid" to user.uid
+                    )
 
-                        db.collection("users").document(user.uid).set(userMap)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    this,
-                                    "Registered successfully! Verify your email before login.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                auth.signOut()
-                                startActivity(Intent(this, LoginActivity::class.java))
-                                finish()
-                            }.addOnFailureListener { e ->
-                                Toast.makeText(
-                                    this, "Database error: ${e.message}", Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                    }?.addOnFailureListener {
-                        Toast.makeText(
-                            this,
-                            "Failed to send verification email: ${it.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT)
-                        .show()
+                    db.collection("users").document(user.uid).set(userMap)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                this,
+                                "Registered successfully! Verify your email before login.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            auth.signOut()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        }.addOnFailureListener { e ->
+                            Toast.makeText(
+                                this, "Database error: ${e.message}", Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }?.addOnFailureListener {
+                    Toast.makeText(
+                        this,
+                        "Failed to send verification email: ${it.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
+        finish()
     }
 }
