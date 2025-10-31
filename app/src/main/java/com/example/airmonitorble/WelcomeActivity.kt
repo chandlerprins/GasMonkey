@@ -12,10 +12,10 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        // Delay to show splash screen (optional, e.g., 2 seconds)
+        // Delay to show splash screen for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             checkLoginStatus()
-        }, 2000) // 2000 ms = 2 seconds
+        }, 5000) // 5 seconds
     }
 
     private fun checkLoginStatus() {
