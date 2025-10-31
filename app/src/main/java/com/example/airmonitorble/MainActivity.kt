@@ -19,6 +19,8 @@ import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.support.v18.scanner.*
 import java.util.*
 import android.content.Intent
+import android.view.ContextThemeWrapper
+import android.graphics.Color
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -178,10 +180,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPasswordDialog(ssid: String) {
-        val input = EditText(this)
-        input.hint = "Enter password"
+        val input = EditText(this).apply {
+            hint = "Enter password"
+            setHintTextColor(Color.GRAY)
+            setTextColor(Color.WHITE)
+            setBackgroundColor(Color.parseColor("#1E1E1E"))
+        }
 
-        AlertDialog.Builder(this).setTitle("Connect to $ssid").setView(input)
+        val builder = AlertDialog.Builder(
+            ContextThemeWrapper(this, R.style.CustomAlertDialog)
+        )
+
+        builder.setTitle("Connect to $ssid")
+            .setView(input)
             .setPositiveButton("Send") { _: DialogInterface, _: Int ->
                 val pass = input.text.toString()
                 if (pass.isNotEmpty()) {
@@ -195,8 +206,11 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Password required", Toast.LENGTH_SHORT).show()
                 }
-            }.setNegativeButton("Cancel", null).show()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
+
 
     private fun startScanAndConnect() {
         statusText.text = "Scanning for AirMonitor BLE..."

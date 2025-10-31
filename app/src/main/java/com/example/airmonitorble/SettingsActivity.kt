@@ -2,6 +2,7 @@ package com.example.airmonitorble
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var btnReportProblem: Button
     private lateinit var btnAddAccount: Button
     private lateinit var btnLogout: Button
+    private lateinit var btnContactUs: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,20 +28,23 @@ class SettingsActivity : AppCompatActivity() {
         btnReportProblem = findViewById(R.id.btnReportProblem)
         btnAddAccount = findViewById(R.id.btnAddAccount)
         btnLogout = findViewById(R.id.btnLogout)
+        btnContactUs = findViewById(R.id.btnContactUs)
+
+        // ---- Contact Us button ----
+        btnContactUs.setOnClickListener {
+            sendEmail()
+        }
 
         btnEditProfile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
 
         btnReportProblem.setOnClickListener {
-            val intent = Intent(this, ReportProblemActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, ReportProblemActivity::class.java))
         }
 
         btnAddAccount.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         btnLogout.setOnClickListener {
@@ -65,21 +70,29 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(Intent(this, DashboardActivity::class.java))
                     true
                 }
-
                 R.id.nav_history -> {
                     startActivity(Intent(this, HistoryActivity::class.java))
                     true
                 }
-
                 R.id.nav_settings -> true
-
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
-
                 else -> false
             }
         }
+    }
+
+    private fun sendEmail() {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("gasmonkeysgq@gmail.com"))
+            putExtra(Intent.EXTRA_SUBJECT, "Gas Monkey App Inquiry")
+            putExtra(Intent.EXTRA_TEXT, "Hello Gas Monkey Team,\n\n") // Prefill message body
+        }
+
+        // Let user pick which email app to use
+        startActivity(Intent.createChooser(emailIntent, "Send email via"))
     }
 }

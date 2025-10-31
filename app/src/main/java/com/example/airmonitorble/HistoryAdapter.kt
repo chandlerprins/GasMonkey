@@ -26,10 +26,15 @@ class HistoryAdapter(private val readings: List<SensorReading>) :
         holder.title.text = "AQI: ${r.Aqi} | Temp: ${r.Temperature}°C"
         holder.subtitle.text =
             "Time: $date | LPG: ${r.Lpg}, CO₂: ${r.Co2}, NH₃: ${r.Nh3}, Humidity: ${r.Humidity}%"
+
+        holder.title.setTextColor(android.graphics.Color.WHITE)
+        holder.subtitle.setTextColor(android.graphics.Color.WHITE)
     }
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(android.R.id.text1)
         val subtitle: TextView = itemView.findViewById(android.R.id.text2)
+
+
     }
 }

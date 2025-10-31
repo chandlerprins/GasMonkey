@@ -45,15 +45,15 @@
         <EditText
             android:id="@+id/etProblemDescription"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_marginBottom="25dp"
-            android:backgroundTint="#FF0600"
-            android:gravity="top"
+            android:background="@drawable/edittext_border"
             android:hint="Describe your problem..."
             android:inputType="textMultiLine"
-            android:padding="15dp"
+            android:gravity="top|start"
+            android:padding="12dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            android:textColorHint="#AAAAAA" />
 
         <Button
             android:id="@+id/btnSubmitProblem"
