@@ -1,57 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#121212"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_gradient"
     android:padding="20dp"
-    android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/connectBleBtn"
-        android:text="Connect to BLE Device"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#B00020"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/scanWifiBtn"
-        android:text="Scan for Wi-Fi Networks"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#D32F2F"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        <TextView
+            android:text="⚙️ GasMonkey Device Control"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/goToDashboardBtn"
-        android:text="Go to Dashboard"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#E53935"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        <!-- Control Buttons Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#1E1E1E"
+            android:padding="20dp">
 
-    <Button
-        android:id="@+id/goToHistoryBtn"
-        android:text="Go to History"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#E53935"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/statusText"
-        android:text="Status: Idle"
-        android:textColor="#FF0000"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/connectBleBtn"
+                    android:text="Connect to BLE Device"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="12dp"
+                    app:backgroundTint="#FF5252" />
 
-    <ListView
-        android:id="@+id/wifiListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
-</LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/scanWifiBtn"
+                    android:text="Scan Wi-Fi Networks"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="12dp"
+                    app:backgroundTint="#E53935" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/goToDashboardBtn"
+                    android:text="Go to Dashboard"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadiu
