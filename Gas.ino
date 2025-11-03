@@ -1,0 +1,209 @@
+#include <WiFi.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
+#include <DHT.h>
+#include <HTTPClient.h>
+#include <time.h>  // For timestamps
+
+// ==== OLED Setup ====
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+bool oledInitialized = false;
+
+// ==== Pins for FireBeetle 2 ESP32-C6 ====
+#define MQ2_PIN       3    // A1
+#define MQ135_PIN     2    // A2
+#define DHT_PIN       15   // D13
+#define BUZZER_PIN    8    // D9
+#define LED_PIN       10   // D10
+#define DHT_TYPE      DHT11
+
+// ==== I2C for OLED ====
+#define I2C_SDA       6
+#define I2C_SCL       7
+
+// ==== BLE UUIDs ====
+#define SERVICE_UUID        "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_SSID "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_PASS "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+
+// ==== WiFi Variables ====
+WiFiServer server(80);
+String ssidReceived = "";
+String passReceived = "";
+bool credsReceived = false;
+bool wifiConnected = false;
+
+// ==== DHT Sensor ====
+DHT dht(DHT_PIN, DHT_TYPE);
+float tempBaseline = 25.0;
+float humBaseline = 50.0;
+
+// ==== Firebase Config ====
+const char* firebaseHost = "gasmonkey-4d52f-default-rtdb.firebaseio.com";
+const char* deviceId = "DEVICE001";
+unsigned long lastFirebaseSend = 0;
+const unsigned long FIREBASE_INTERVAL = 10000;
+
+// ==== Helper Function ====
+void displayReadings(float lpg, float co2, float nh3, float aqi, float t, float h, String wifiMsg) {
+  if (!oledInitialized) return;
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.printf("LPG: %.1f\nCO2: %.1f\nNH3: %.1f\nAQI: %.1f\nT: %.1fC H: %.0f%%\n%s",
+                 lpg, co2, nh3, aqi, t, h, wifiMsg.c_str());
+  display.display();
+}
+
+// ==== BLE Callbacks ====
+class SSIDCallback : public BLECharacteristicCallbacks {
+  void onWrite(BLECharacteristic *pCharacteristic) override {
+    std::string valueStd = std::string(pCharacteristic->getValue().begin(), pCharacteristic->getValue().end());
+    if (!valueStd.empty()) ssidReceived = String(valueStd.c_str());
+  }
+};
+
+class PassCallback : public BLECharacteristicCallbacks {
+  void onWrite(BLECharacteristic *pCharacteristic) override {
+    std::string valueStd = std::string(pCharacteristic->getValue().begin(), pCharacteristic->getValue().end());
+    if (!valueStd.empty()) {
+      passReceived = String(valueStd.c_str());
+      credsReceived = true;
+    }
+  }
+};
+
+// ==== WiFi Connect ====
+void connectToWiFi() {
+  displayReadings(0, 0, 0, 0, 0, 0, "Connecting WiFi...");
+  WiFi.begin(ssidReceived.c_str(), passReceived.c_str());
+  int retries = 0;
+
+  while (WiFi.status() != WL_CONNECTED && retries < 60) {
+    delay(500);
+    retries++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    wifiConnected = true;
+    configTime(7200, 0, "pool.ntp.org", "time.nist.gov"); // GMT+2
+    displayReadings(0, 0, 0, 0, 0, 0, "WiFi Connected!");
+    server.begin();
+  } else {
+    displayReadings(0, 0, 0, 0, 0, 0, "WiFi Failed!");
+    BLEDevice::getAdvertising()->start();
+  }
+}
+
+// ==== Send data to Firebase ====
+void sendToFirebase(float lpg, float co2, float nh3, float aqi, float temperature, float humidity) {
+  if (WiFi.status() != WL_CONNECTED) return;
+
+  HTTPClient http;
+  String url = "https://" + String(firebaseHost) + "/devices/" + String(deviceId) + "/readings.json";
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) return;
+  char timestamp[25];
+  strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &timeinfo);
+
+  String jsonData = "{";
+  jsonData += "\"timestamp\":\"" + String(timestamp) + "\",";
+  jsonData += "\"lpg_ppm\":" + String(lpg, 1) + ",";
+  jsonData += "\"co2_ppm\":" + String(co2, 1) + ",";
+  jsonData += "\"nh3_ppm\":" + String(nh3, 1) + ",";
+  jsonData += "\"aqi\":" + String(aqi, 1) + ",";
+  jsonData += "\"temp_c\":" + String(temperature, 1) + ",";
+  jsonData += "\"humidity\":" + String(humidity, 1);
+  jsonData += "}";
+
+  int httpResponseCode = http.POST(jsonData);
+  Serial.printf("Firebase POST: %d\n", httpResponseCode);
+  http.end();
+}
+
+// ==== Setup ====
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(I2C_SDA, I2C_SCL);
+  delay(300);
+
+  if (display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    oledInitialized = true;
+    displayReadings(0, 0, 0, 0, 0, 0, "OLED Ready");
+  }
+
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  noTone(BUZZER_PIN);
+  digitalWrite(LED_PIN, LOW);
+
+  analogReadResolution(12);
+  dht.begin();
+  delay(2000);
+
+  displayReadings(0, 0, 0, 0, 0, 0, "Calibrating...");
+  delay(1000);
+
+  // ==== BLE ====
+  BLEDevice::init("AirMonitor BLE");
+  BLEServer *pServer = BLEDevice::createServer();
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+  BLECharacteristic *ssidChar = pService->createCharacteristic(CHARACTERISTIC_SSID, BLECharacteristic::PROPERTY_WRITE);
+  BLECharacteristic *passChar = pService->createCharacteristic(CHARACTERISTIC_PASS, BLECharacteristic::PROPERTY_WRITE);
+  ssidChar->setCallbacks(new SSIDCallback());
+  passChar->setCallbacks(new PassCallback());
+  pService->start();
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->start();
+
+  displayReadings(0, 0, 0, 0, 0, 0, "BLE Ready\nSend WiFi creds");
+}
+
+// ==== Main Loop ====
+void loop() {
+  if (credsReceived && !wifiConnected) connectToWiFi();
+
+  int mq2ADC = analogRead(MQ2_PIN);
+  int mq135ADC = analogRead(MQ135_PIN);
+
+  float lpg = constrain(mq2ADC / 40.0, 0, 100);
+  float co2 = constrain(mq135ADC / 8.0, 0, 500);
+  float nh3 = constrain(mq135ADC / 10.0, 0, 500);
+  float aqi = (lpg + co2 + nh3) / 3.0;
+
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  if (isnan(temperature)) temperature = tempBaseline;
+  if (isnan(humidity)) humidity = humBaseline;
+
+  String wifiMsg = wifiConnected ? "WiFi: Connected" : "WiFi: Not Connected";
+  displayReadings(lpg, co2, nh3, aqi, temperature, humidity, wifiMsg);
+
+  if (aqi > 210.0) {
+    tone(BUZZER_PIN, 1000);
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    noTone(BUZZER_PIN);
+    digitalWrite(LED_PIN, LOW);
+  }
+
+  if (wifiConnected && millis() - lastFirebaseSend > FIREBASE_INTERVAL) {
+    sendToFirebase(lpg, co2, nh3, aqi, temperature, humidity);
+    lastFirebaseSend = millis();
+  }
+
+  delay(2000);
+}
