@@ -13,7 +13,12 @@
           "package_name": "com.example.airmonitorble"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "131669671638-q492v98jr992849rhivgq08ulb5o0frs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB5xuZkNp9sEwdgEDeCRb3IwTJfEAlfBeo"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131669671638-q492v98jr992849rhivgq08ulb5o0frs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
