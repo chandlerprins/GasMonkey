@@ -107,7 +107,7 @@ class DashboardActivity : AppCompatActivity() {
                     reading?.let {
                         withContext(Dispatchers.Main) {
                             updateUI(it)
-                            if (it.Aqi > 150.0) sendAlert(it.Aqi)
+                            if (it.Aqi > 210.0) sendAlert(it.Aqi)
                         }
                     }
                 } else {
