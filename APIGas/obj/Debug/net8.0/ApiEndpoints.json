@@ -1,0 +1,38 @@
+[
+  {
+    "ContainingType": "APIGas.Controllers.ReadingsController",
+    "Method": "PostReading",
+    "RelativePath": "api/Readings",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reading",
+        "Type": "APIGas.Models.SensorReading",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIGas.Controllers.ReadingsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Readings/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIGas.Controllers.ReadingsController",
+    "Method": "GetLatest",
+    "RelativePath": "api/Readings/latest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

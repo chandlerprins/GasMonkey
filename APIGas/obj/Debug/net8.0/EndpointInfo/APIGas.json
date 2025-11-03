@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "APIGas",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Readings": {
+      "post": {
+        "tags": [
+          "Readings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SensorReading"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SensorReading"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SensorReading"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Readings/all": {
+      "get": {
+        "tags": [
+          "Readings"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Readings/latest": {
+      "get": {
+        "tags": [
+          "Readings"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SensorReading": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestampLong": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "readableTimestamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "temp_c": {
+            "type": "number",
+            "format": "double"
+          },
+          "humidity": {
+            "type": "number",
+            "format": "double"
+          },
+          "lpg_ppm": {
+            "type": "number",
+            "format": "double"
+          },
+          "co2_ppm": {
+            "type": "number",
+            "format": "double"
+          },
+          "nh3_ppm": {
+            "type": "number",
+            "format": "double"
+          },
+          "aqi": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
