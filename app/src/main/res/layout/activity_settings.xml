@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_header"
         android:gravity="center"
-        android:paddingBottom="15dp"
-        android:paddingTop="50dp">
+        android:paddingTop="50dp"
+        android:paddingBottom="15dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -30,8 +30,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,73 +39,80 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <Button
-                android:id="@+id/connectBleBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
-                android:fontFamily="sans-serif-medium"
-                android:text="Connect to BLE Device"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/scanWifiBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#FF0000"
-                android:fontFamily="sans-serif-medium"
-                android:text="Scan for Wi-Fi Networks"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-<!--            <Button-->
-<!--                android:id="@+id/goToDashboardBtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:backgroundTint="#FF0000"-->
-<!--                android:fontFamily="sans-serif-medium"-->
-<!--                android:text="Go to Dashboard"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:textColor="#000000"-->
-<!--                android:textStyle="bold" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/goToHistoryBtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:backgroundTint="#FF0000"-->
-<!--                android:fontFamily="sans-serif-medium"-->
-<!--                android:text="Go to History"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:textColor="#000000"-->
-<!--                android:textStyle="bold" />-->
-
             <TextView
-                android:id="@+id/statusText"
+                android:id="@+id/tvSettingsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif"
-                android:text="Status: Idle"
-                android:textColor="#FF3B30"
+                android:layout_marginBottom="25dp"
+                android:text="Application Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#FF0B00"
+                android:paddingVertical="15dp"
+                android:text="Edit Profile"
+                android:textAllCaps="true"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <ListView
-                android:id="@+id/wifiListView"
+            <Button
+                android:id="@+id/btnReportProblem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:divider="#FF0000"
-                android:dividerHeight="1dp"/>
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#FF0B00"
+                android:paddingVertical="15dp"
+                android:text="Report a Problem"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnContactUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#FF0B00"
+                android:paddingVertical="15dp"
+                android:text="Contact Us"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnAddAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#FF0B00"
+                android:paddingVertical="15dp"
+                android:text="Add Account"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#FF0B00"
+                android:paddingVertical="15dp"
+                android:text="Log Out"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 
@@ -116,10 +122,10 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         app:backgroundTint="#1E1E1E"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
         app:itemActiveIndicatorStyle="@style/BottomNavIndicator"
+        app:itemIconTint="@color/white"
         app:itemRippleColor="#FF0000"
+        app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

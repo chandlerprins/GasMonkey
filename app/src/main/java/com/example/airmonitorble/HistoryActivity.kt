@@ -1,11 +1,13 @@
 package com.example.airmonitorble
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -13,9 +15,9 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import java.text.SimpleDateFormat
 import java.util.*
 
-// ------------------ History Activity ------------------
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var graph: GraphView
@@ -33,6 +35,36 @@ class HistoryActivity : AppCompatActivity() {
         historyRecycler = findViewById(R.id.historyRecycler)
         historyRecycler.layoutManager = LinearLayoutManager(this)
 
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationBar)
+        bottomNav.selectedItemId = R.id.nav_history
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                R.id.nav_dashboard -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                R.id.nav_history -> true
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    overridePendingTransition(0,0)
+                    true
+                }
+                else -> false
+            }
+        }
+
         fetchHistory()
     }
 
@@ -46,7 +78,8 @@ class HistoryActivity : AppCompatActivity() {
 
         scope.launch(Dispatchers.IO) {
             try {
-                val readingsList = api.getAllReadings().sortedBy { it.Timestamp }
+                val readingsList = api.getAllReadings()
+                    .sortedBy { parseDate(it.Timestamp)?.time ?: 0L }  // sort by parsed timestamp
 
                 Log.d("HistoryActivity", "Fetched ${readingsList.size} readings")
 
@@ -67,9 +100,17 @@ class HistoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun parseDate(timestamp: String): Date? {
+        return try {
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(timestamp)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun displayGraph(readings: List<SensorReading>) {
         val series = LineGraphSeries<DataPoint>()
-        val sorted = readings.sortedBy { it.Timestamp }
+        val sorted = readings.sortedBy { parseDate(it.Timestamp)?.time ?: 0L }
         for ((index, r) in sorted.withIndex()) {
             series.appendData(DataPoint(index.toDouble(), r.Aqi), true, sorted.size)
         }
@@ -82,7 +123,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun displayList(readings: List<SensorReading>) {
-        historyRecycler.adapter = HistoryAdapter(readings.sortedByDescending { it.Timestamp })
+        historyRecycler.adapter = HistoryAdapter(readings.sortedByDescending { parseDate(it.Timestamp)?.time ?: 0L })
     }
 
     override fun onDestroy() {
@@ -91,7 +132,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 }
 
-// ------------------ Retrofit API ------------------
+// Retrofit API
 interface ReadingsApi {
     @GET("readings/all")
     suspend fun getAllReadings(): List<SensorReading>
