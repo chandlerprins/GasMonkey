@@ -1,63 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="#121212"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_gradient"
     tools:context=".SearchDeviceActivity">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for your Air Monitor Device"
-        android:textColor="#FF3B30"
-        android:textSize="20sp"
+        android:text="🔍 Search for Your Air Monitor"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="20dp"/>
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="center" />
 
-    <EditText
-        android:id="@+id/etSearch"
+    <!-- Input Card -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Device ID"
-        android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888"
-        android:backgroundTint="#FF3B30"
-        android:inputType="text"/>
+        app:cardCornerRadius="18dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#1E1E1E"
+        android:padding="20dp">
 
-    <Button
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Device ID"
+            app:boxStrokeColor="#FF3B30"
+            app:hintTextColor="#FF3B30"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:textColor="@android:color/white"
+                android:textColorHint="#AAAAAA"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Search Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search Device"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF3B30"
-        android:textColor="#FFFFFF"/>
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        app:cornerRadius="14dp"
+        app:backgroundTint="#FF3B30" />
 
+    <!-- Search Result -->
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#FFFFFF"
-        android:layout_marginTop="30dp"
         android:textSize="16sp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
 
-    <Button
+    <!-- Add Device Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddDevice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Device"
-        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:cornerRadius="14dp"
+        app:backgroundTint="#D32F2F"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#FF3B30"
-        android:textColor="#FFFFFF"/>
-
+        android:visibility="gone" />
 </LinearLayout>
