@@ -3,7 +3,7 @@ package com.example.airmonitorble
 import com.google.gson.annotations.SerializedName
 
 data class SensorReading(
-    @SerializedName("timestampLong") val Timestamp: Long,
+    @SerializedName("timestamp") val Timestamp: String,
     @SerializedName("lpg_ppm") val Lpg: Double,
     @SerializedName("co2_ppm") val Co2: Double,
     @SerializedName("nh3_ppm") val Nh3: Double,

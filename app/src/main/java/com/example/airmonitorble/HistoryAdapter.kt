@@ -11,6 +11,9 @@ import java.util.*
 class HistoryAdapter(private val readings: List<SensorReading>) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
+    private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    private val displayFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(android.R.layout.simple_list_item_2, parent, false)
@@ -21,10 +24,21 @@ class HistoryAdapter(private val readings: List<SensorReading>) :
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val r = readings[position]
-        val date = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-            .format(Date(r.Timestamp))
+
+        // Parse string timestamp to Date
+        val date = try {
+            val parsed = inputFormat.parse(r.Timestamp)
+            displayFormat.format(parsed!!)
+        } catch (e: Exception) {
+            r.Timestamp  // fallback if parsing fails
+        }
+
         holder.title.text = "AQI: ${r.Aqi} | Temp: ${r.Temperature}°C"
-        holder.subtitle.text = "Time: $date | LPG: ${r.Lpg}, CO₂: ${r.Co2}, NH₃: ${r.Nh3}, Humidity: ${r.Humidity}%"
+        holder.subtitle.text =
+            "Time: $date | LPG: ${r.Lpg} ppm, CO₂: ${r.Co2} ppm, NH₃: ${r.Nh3} ppm, Humidity: ${r.Humidity}%"
+
+        holder.title.setTextColor(android.graphics.Color.WHITE)
+        holder.subtitle.setTextColor(android.graphics.Color.WHITE)
     }
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

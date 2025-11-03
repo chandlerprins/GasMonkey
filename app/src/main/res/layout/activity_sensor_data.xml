@@ -1,17 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="20dp"
-    android:background="#000000"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".SensorDataActivity">
 
     <TextView
         android:id="@+id/gasDataText"
-        android:text="Fetching sensor data..."
-        android:textSize="18sp"
-        android:textColor="#FF5252"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Fetching Sensor Data..."
+        android:textColor="#FF0000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 </LinearLayout>
