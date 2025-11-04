@@ -123,7 +123,7 @@ Keenan Davis - ST10201316
 
 ## 📄 License
 
-This project is licensed under the (MIT License)[License.md] – feel free to use, modify, and distribute it with attribution.
+This project is licensed under the (MIT License)[LICENSE] – feel free to use, modify, and distribute it with attribution.
 
 
 ## 📞 Support
