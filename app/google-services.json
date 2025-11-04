@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "131669671638",
+    "firebase_url": "https://gasmonkey-4d52f-default-rtdb.firebaseio.com",
+    "project_id": "gasmonkey-4d52f",
+    "storage_bucket": "gasmonkey-4d52f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131669671638:android:b4b5eccd5f53c687621377",
+        "android_client_info": {
+          "package_name": "com.example.airmonitorble"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131669671638-q492v98jr992849rhivgq08ulb5o0frs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5xuZkNp9sEwdgEDeCRb3IwTJfEAlfBeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131669671638-q492v98jr992849rhivgq08ulb5o0frs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
