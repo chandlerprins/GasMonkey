@@ -75,22 +75,6 @@ GasMonkeys is an end-to-end IoT solution that monitors environmental conditions 
 4. **Set API endpoint** URL to your Azure API
 5. **Upload sketch** to ESP32-C6 board
 
-### Azure API Deployment
-
-1. **Clone the repository**
-2. **Configure connection strings** in `appsettings.json`
-3. **Deploy to Azure**:
-```bash
-   az webapp up --name gasmonkeys-api --resource-group YourResourceGroup
-```
-4. **Configure CORS** settings to allow Android app access
-
-## 🔐 Security Considerations
-
-- API authentication using bearer tokens
-- Encrypted communication (HTTPS/TLS)
-- Secure storage of credentials on device
-- Input validation and sanitization on all endpoints
 
 ## 📊 API Endpoints
 ```
@@ -123,6 +107,8 @@ GET  /api/sensors/device/{id}     - Get specific device data
 Dhruv Rathod - ST10109298
 Mud-dath-thir Daniels - ST10301862 
 Chandler Prins - ST10268042 
+
+
 Gareth Elie - ST10076171 
 Noah de Boer - ST10284617 
 Keenan Davis - ST10201316 
