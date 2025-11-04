@@ -51,6 +51,12 @@ GasMonkeys is an end-to-end IoT solution that monitors environmental conditions 
 
 ## 📱 Android App Screenshots
 
+![GAS 1](gas1.jpg)
+![GAS 2](GAS2.jpg)
+![GAS 3](gas3.jpg)
+![GAS 4](gas4.jpg)
+![GAS 5](gas5.jpg)
+
 
 
 ## 🔧 Installation & Setup
