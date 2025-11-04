@@ -53,13 +53,10 @@ GasMonkeys is an end-to-end IoT solution that monitors environmental conditions 
 
 
 <img src="gas1.jpg" alt="gas1" style="width:25%; height:auto;">
-
-![GAS 1](gas1.jpg)
-![GAS 2](GAS2.jpg)
-![GAS 3](gas3.jpg)
-![GAS 4](gas4.jpg)
-![GAS 5](gas5.jpg)
-
+<img src="GAS2.jpg" alt="gas2" style="width:25%; height:auto;">
+<img src="gas3.jpg" alt="gas3" style="width:25%; height:auto;">
+<img src="gas4.jpg" alt="gas4" style="width:25%; height:auto;">
+<img src="gas5.jpg" alt="gas5" style="width:25%; height:auto;">
 
 
 ## 🔧 Installation & Setup
