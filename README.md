@@ -13,7 +13,7 @@ GasMonkeys is an end-to-end IoT solution that monitors environmental conditions 
 - **NH₃ (Ammonia)** - Tracks ammonia concentration
 - **Temperature** - Ambient temperature measurement
 - **Humidity** - Relative humidity percentage
-- **AQI (Air Quality Index)** - Overall air quality assessment
+
 
 ## 🏗️ System Architecture
 
@@ -88,10 +88,10 @@ GET  /api/sensors/device/{id}     - Get specific device data
 
 | Parameter | Safe | Warning | Danger |
 |-----------|------|---------|--------|
-| LPG       | <1000 ppm | 1000-2000 ppm | >2000 ppm |
-| CO₂       | <1000 ppm | 1000-2000 ppm | >2000 ppm |
+| LPG       | <120 ppm | 180-200 ppm | >200 ppm |
+| CO₂       | <100 ppm | 200-205 ppm | >210 ppm |
 | NH₃       | <25 ppm | 25-50 ppm | >50 ppm |
-| AQI       | 0-50 | 51-100 | >100 |
+
 
 ## 🛠️ Technologies Used
 
